@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:note_app/domain/model/note_model.dart';
+import 'package:go_router/go_router.dart';
 import 'package:note_app/view/view_model/main_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -35,6 +34,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          context.push("/create");
         },
         child: Icon(Icons.add),
       ),
