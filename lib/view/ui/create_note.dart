@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:note_app/domain/model/note_model.dart';
 import 'package:note_app/view/view_model/main_view_model.dart';
 
 import '../../di/di_setup.dart';
 
 class CreateNote extends StatefulWidget {
-  const CreateNote({super.key});
+  NoteModel? _model;
+  final int? _index;
+
+  CreateNote(
+      {super.key, NoteModel? model, int? index})
+      : _index = index,
+        _model = model;
 
   @override
   State<CreateNote> createState() => _CreateNoteState();
@@ -28,9 +35,16 @@ class _CreateNoteState extends State<CreateNote> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _isSelected[0] = true;
+    if (widget._index != null && widget._model != null) {
+      _titleController.text = widget._model!.title;
+      _contentController.text = widget._model!.content;
+      _selectedColor = widget._model!.hexColor;
+    } else {
       _selectedColor = _hexList[0];
+    }
+
+    setState(() {
+      _isSelected[_hexList.indexOf(_selectedColor)] = true;
     });
   }
 
@@ -64,7 +78,6 @@ class _CreateNoteState extends State<CreateNote> {
                     });
                   },
                   selectedBorderColor: Colors.black,
-
                 )),
             TextField(
               controller: _titleController,
@@ -105,9 +118,20 @@ class _CreateNoteState extends State<CreateNote> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
             return;
           }
-          getIt<MainViewModel>().setBox(title: _titleController.text,
+          if (widget._index != null) {
+            getIt<MainViewModel>().setBox(
+                title: _titleController.text,
+                content: _contentController.text,
+                color: _selectedColor,
+                index: widget._index);
+          } else {
+            getIt<MainViewModel>().setBox(
+              title: _titleController.text,
               content: _contentController.text,
-              color: _selectedColor);
+              color: _selectedColor,
+            );
+          }
+
           context.push('/');
         },
         child: const Icon(Icons.save),

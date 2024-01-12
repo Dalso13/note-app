@@ -6,8 +6,16 @@ class MainViewModel extends ChangeNotifier {
   final now = DateTime.now().millisecondsSinceEpoch;
   final box = Hive.box<NoteModel>('modelBox');
 
-  void setBox({required String title, required String content, required int color}){
-    box.add(NoteModel(title: title, content: content, hexColor: color, dateTime: now));
+  void setBox({required String title, required String content, required int color , int? index}){
+    if(index != null){
+      box.putAt(index, NoteModel(title: title, content: content, hexColor: color, dateTime: now));
+    } else {
+      box.add(NoteModel(title: title, content: content, hexColor: color, dateTime: now));
+    }
+    notifyListeners();
+  }
+  void deleteBox(int index) {
+    box.deleteAt(index);
     notifyListeners();
   }
 }
