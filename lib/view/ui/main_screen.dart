@@ -56,6 +56,9 @@ class _MainScreenState extends State<MainScreen> {
                     onPressed: () {
                       viewModel
                           .deleteBox(viewModel.box.toList().indexOf(noteModel));
+                      setState(() {
+
+                      });
                     },
                   ),
                 );

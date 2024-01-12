@@ -6,15 +6,16 @@ import '../../data/dao/box_dao.dart';
 class MainViewModel extends ChangeNotifier {
   final now = DateTime.now().millisecondsSinceEpoch;
   final BoxDao _dao;
+  List<NoteModel> _box;
   MainState _state = const MainState();
 
   MainState get state => _state;
 
   MainViewModel({
     required BoxDao dao,
-  }) : _dao = dao;
+  }) : _dao = dao, _box = dao.values.toList();
 
-  List<NoteModel> get box => _dao.values.toList();
+  List<NoteModel> get box => _box;
 
   void setBox(
       {required String title,
@@ -35,6 +36,7 @@ class MainViewModel extends ChangeNotifier {
 
   void deleteBox(int index) {
     _dao.box.deleteAt(index);
+    _box.removeAt(index);
     notifyListeners();
   }
 
@@ -57,16 +59,16 @@ class MainViewModel extends ChangeNotifier {
     switch (index) {
       case 0:
         !_state.isOrder
-            ? box.sort((a, b) => a.title.compareTo(b.title))
-            : box.sort((a, b) => b.title.compareTo(a.title));
+            ? _box.sort((a, b) => a.title.compareTo(b.title))
+            : _box.sort((a, b) => b.title.compareTo(a.title));
       case 1:
         !_state.isOrder
-            ? box.sort((a, b) => a.dateTime.compareTo(b.dateTime))
-            : box.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+            ? _box.sort((a, b) => a.dateTime.compareTo(b.dateTime))
+            : _box.sort((a, b) => b.dateTime.compareTo(a.dateTime));
       case 2:
         !_state.isOrder
-            ? box.sort((a, b) => a.hexColor.compareTo(b.hexColor))
-            : box.sort((a, b) => b.hexColor.compareTo(a.hexColor));
+            ? _box.sort((a, b) => a.hexColor.compareTo(b.hexColor))
+            : _box.sort((a, b) => b.hexColor.compareTo(a.hexColor));
     }
 
     menu[index] = !menu[index];
