@@ -59,6 +59,9 @@ class _CreateNoteState extends State<CreateNote> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(_selectedColor),
+      appBar: AppBar(
+        backgroundColor: Color(_selectedColor),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
