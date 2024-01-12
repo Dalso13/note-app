@@ -14,48 +14,52 @@ class MainViewModel extends ChangeNotifier {
     required BoxDao dao,
   }) : _dao = dao;
 
-   Iterable<NoteModel> get box {
-     return _dao.values;
-   }
+  List<NoteModel> get box {
+    return _dao.values.toList();
+  }
 
-  void setBox({required String title, required String content, required int color , int? index}){
-    if(index != null){
-      _dao.box.putAt(index, NoteModel(title: title, content: content, hexColor: color, dateTime: now));
+  void setBox(
+      {required String title,
+      required String content,
+      required int color,
+      int? index}) {
+    if (index != null) {
+      _dao.box.putAt(
+          index,
+          NoteModel(
+              title: title, content: content, hexColor: color, dateTime: now));
     } else {
-      _dao.box.add(NoteModel(title: title, content: content, hexColor: color, dateTime: now));
+      _dao.box.add(NoteModel(
+          title: title, content: content, hexColor: color, dateTime: now));
     }
     notifyListeners();
   }
+
   void deleteBox(int index) {
     _dao.box.deleteAt(index);
     notifyListeners();
   }
 
   void sortOpen() {
-    _state = _state.copyWith(
-      isOpen: !_state.isOpen
-    );
+    _state = _state.copyWith(isOpen: !_state.isOpen);
     notifyListeners();
   }
+
   void changeIsOrder() {
-    _state = _state.copyWith(
-        isOrder: !_state.isOrder
-    );
+    _state = _state.copyWith(isOrder: !_state.isOrder);
     notifyListeners();
   }
+
   void changeIsMenu(int index) {
     List<bool> menu = _state.isMenu.map((e) => e).toList();
     if (menu.lastIndexOf(true) != -1) {
       menu[menu.lastIndexOf(true)] = false;
     }
 
+
     menu[index] = !menu[index];
-    _state = _state.copyWith(
-      isMenu: menu
-    );
+    _state = _state.copyWith(isMenu: menu);
 
     notifyListeners();
-
   }
-
 }

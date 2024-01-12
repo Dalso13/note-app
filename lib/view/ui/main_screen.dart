@@ -43,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
                         path: '/put',
                         queryParameters: {
                           'index':
-                              '${viewModel.box.toList().indexOf(noteModel)}'
+                              '${viewModel.box.indexOf(noteModel)}'
                         },
                       ).toString(),
                     );
@@ -55,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
                     icon: const Icon(Icons.delete),
                     onPressed: () {
                       viewModel
-                          .deleteBox(viewModel.box.toList().indexOf(noteModel));
+                          .deleteBox(viewModel.box.indexOf(noteModel));
                     },
                   ),
                 );
