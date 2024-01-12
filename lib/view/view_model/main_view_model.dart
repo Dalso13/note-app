@@ -14,7 +14,7 @@ class MainViewModel extends ChangeNotifier {
     required BoxDao dao,
   }) : _dao = dao;
 
-  List<NoteModel> get box => _dao.box.values.toList();
+  List<NoteModel> get box => _dao.values.toList();
 
   void setBox(
       {required String title,
