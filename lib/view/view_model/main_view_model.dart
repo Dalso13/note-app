@@ -14,9 +14,7 @@ class MainViewModel extends ChangeNotifier {
     required BoxDao dao,
   }) : _dao = dao;
 
-  List<NoteModel> get box {
-    return _dao.values.toList();
-  }
+  List<NoteModel> get box => _dao.box.values.toList();
 
   void setBox(
       {required String title,
@@ -56,6 +54,20 @@ class MainViewModel extends ChangeNotifier {
       menu[menu.lastIndexOf(true)] = false;
     }
 
+    switch (index) {
+      case 0:
+        !_state.isOrder
+            ? box.sort((a, b) => a.title.compareTo(b.title))
+            : box.sort((a, b) => b.title.compareTo(a.title));
+      case 1:
+        !_state.isOrder
+            ? box.sort((a, b) => a.dateTime.compareTo(b.dateTime))
+            : box.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+      case 2:
+        !_state.isOrder
+            ? box.sort((a, b) => a.hexColor.compareTo(b.hexColor))
+            : box.sort((a, b) => b.hexColor.compareTo(a.hexColor));
+    }
 
     menu[index] = !menu[index];
     _state = _state.copyWith(isMenu: menu);

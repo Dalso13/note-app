@@ -135,7 +135,7 @@ class _CreateNoteState extends State<CreateNote> {
             );
           }
 
-          context.push('/');
+          context.go('/');
         },
         child: const Icon(Icons.save),
       ),
