@@ -41,7 +41,7 @@ class SortBar {
                       viewModel.changeIsOrder();
                     }
                   },
-                  child: Text('오름차순')),
+                  child: Text('내림차순')),
             )
           ],
         ),
