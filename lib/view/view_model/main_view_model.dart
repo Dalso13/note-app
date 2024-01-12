@@ -30,6 +30,7 @@ class MainViewModel extends ChangeNotifier {
     _dao.box.deleteAt(index);
     notifyListeners();
   }
+
   void sortOpen() {
     _state = _state.copyWith(
       isOpen: !_state.isOpen
