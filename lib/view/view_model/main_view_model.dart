@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/domain/model/note_model.dart';
 import 'package:note_app/view/view_model/main_state.dart';
-import '../../data/dao/box_dao.dart';
+import '../../data/dao/note_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class MainViewModel extends ChangeNotifier {
@@ -20,25 +20,25 @@ class MainViewModel extends ChangeNotifier {
   List<NoteModel> get noteList => _noteList;
 
   Future<void> getAllNote() async {
-   _noteList =  await _noteRepository.getAllMessages();
+   _noteList =  await _noteRepository.getAllNote();
    notifyListeners();
   }
 
-  Future<void> setBox(
+  Future<void> setNote(
       {required String title,
       required String content,
       required int color,
       String? uuid}) async {
     if (uuid == null) {
-      await _noteRepository.updateMessage(note: NoteModel(id: _uuid.v1(), title: title, content: content, hexColor: color, dateTime: now));
+      await _noteRepository.updateNote(note: NoteModel(id: _uuid.v1(), title: title, content: content, hexColor: color, dateTime: now));
     } else {
-      await _noteRepository.updateMessage(note: NoteModel(id: uuid, title: title, content: content, hexColor: color, dateTime: now));
+      await _noteRepository.updateNote(note: NoteModel(id: uuid, title: title, content: content, hexColor: color, dateTime: now));
     }
     notifyListeners();
   }
 
-  Future<void> deleteBox(String uuid) async {
-    await _noteRepository.deleteMessage(uuid: uuid);
+  Future<void> deleteNote(String uuid) async {
+    await _noteRepository.deleteNote(uuid: uuid);
     _noteList.removeWhere((NoteModel e) => e.id == uuid);
     notifyListeners();
   }

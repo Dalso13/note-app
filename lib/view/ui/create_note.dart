@@ -120,14 +120,14 @@ class _CreateNoteState extends State<CreateNote> {
             return;
           }
           if (widget._model != null) {
-            getIt<MainViewModel>().setBox(
+            getIt<MainViewModel>().setNote(
                 title: _titleController.text,
                 content: _contentController.text,
                 color: _selectedColor,
                 uuid : widget._model!.id,
             );
           } else {
-            getIt<MainViewModel>().setBox(
+            getIt<MainViewModel>().setNote(
               title: _titleController.text,
               content: _contentController.text,
               color: _selectedColor,

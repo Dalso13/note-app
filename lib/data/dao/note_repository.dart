@@ -6,7 +6,7 @@ class NoteRepository {
   FirebaseFirestore.instance.collection('Note');
 
 
-  Future<List<NoteModel>> getAllMessages() async {
+  Future<List<NoteModel>> getAllNote() async {
     List<NoteModel> chatList = [];
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot = await noteDB.get();
@@ -20,7 +20,7 @@ class NoteRepository {
     return chatList;
   }
 
-  Future<void> updateMessage({required NoteModel note}) async {
+  Future<void> updateNote({required NoteModel note}) async {
     try {
       await noteDB.doc(note.id).set(note.toJson());
     } catch (e) {
@@ -29,7 +29,7 @@ class NoteRepository {
 
   }
 
-  Future<void> deleteMessage({required String uuid}) async {
+  Future<void> deleteNote({required String uuid}) async {
     try {
       await noteDB.doc(uuid).delete();
     } catch (e) {

@@ -57,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
                     icon: const Icon(Icons.delete),
                     onPressed: () {
                       viewModel
-                          .deleteBox(noteModel.id);
+                          .deleteNote(noteModel.id);
                       setState(() {
 
                       });
