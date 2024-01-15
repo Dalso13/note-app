@@ -21,8 +21,7 @@ final router = GoRouter(
       path: '/put',
       builder: (context, state) {
         final model = state.extra as NoteModel;
-        final int index = int.parse(state.uri.queryParameters['index']!);
-        return CreateNote(index: index, model: model,);
+        return CreateNote(model: model);
       },
     ),
     GoRoute(

@@ -2,41 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:note_app/domain/model/note_model.dart';
 import 'package:note_app/view/view_model/main_state.dart';
 import '../../data/dao/box_dao.dart';
+import 'package:uuid/uuid.dart';
 
 class MainViewModel extends ChangeNotifier {
   final now = DateTime.now().millisecondsSinceEpoch;
-  final BoxDao _dao;
-  List<NoteModel> _box;
+  final NoteRepository _noteRepository;
+  final Uuid _uuid = const Uuid();
+  List<NoteModel> _noteList = [];
   MainState _state = const MainState();
 
   MainState get state => _state;
 
   MainViewModel({
-    required BoxDao dao,
-  }) : _dao = dao, _box = dao.values.toList();
+    required NoteRepository dao,
+  }) : _noteRepository = dao;
 
-  List<NoteModel> get box => _box;
+  List<NoteModel> get noteList => _noteList;
 
-  void setBox(
+  Future<void> getAllNote() async {
+   _noteList =  await _noteRepository.getAllMessages();
+   notifyListeners();
+  }
+
+  Future<void> setBox(
       {required String title,
       required String content,
       required int color,
-      int? index}) {
-    if (index != null) {
-      _dao.box.putAt(
-          index,
-          NoteModel(
-              title: title, content: content, hexColor: color, dateTime: now));
+      String? uuid}) async {
+    if (uuid == null) {
+      await _noteRepository.updateMessage(note: NoteModel(id: _uuid.v1(), title: title, content: content, hexColor: color, dateTime: now));
     } else {
-      _dao.box.add(NoteModel(
-          title: title, content: content, hexColor: color, dateTime: now));
+      await _noteRepository.updateMessage(note: NoteModel(id: uuid, title: title, content: content, hexColor: color, dateTime: now));
     }
     notifyListeners();
   }
 
-  void deleteBox(int index) {
-    _dao.box.deleteAt(index);
-    _box.removeAt(index);
+  Future<void> deleteBox(String uuid) async {
+    await _noteRepository.deleteMessage(uuid: uuid);
+    _noteList.removeWhere((NoteModel e) => e.id == uuid);
     notifyListeners();
   }
 
@@ -59,16 +62,16 @@ class MainViewModel extends ChangeNotifier {
     switch (index) {
       case 0:
         !_state.isOrder
-            ? _box.sort((a, b) => a.title.compareTo(b.title))
-            : _box.sort((a, b) => b.title.compareTo(a.title));
+            ? _noteList.sort((a, b) => a.title.compareTo(b.title))
+            : _noteList.sort((a, b) => b.title.compareTo(a.title));
       case 1:
         !_state.isOrder
-            ? _box.sort((a, b) => a.dateTime.compareTo(b.dateTime))
-            : _box.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+            ? _noteList.sort((a, b) => a.dateTime.compareTo(b.dateTime))
+            : _noteList.sort((a, b) => b.dateTime.compareTo(a.dateTime));
       case 2:
         !_state.isOrder
-            ? _box.sort((a, b) => a.hexColor.compareTo(b.hexColor))
-            : _box.sort((a, b) => b.hexColor.compareTo(a.hexColor));
+            ? _noteList.sort((a, b) => a.hexColor.compareTo(b.hexColor))
+            : _noteList.sort((a, b) => b.hexColor.compareTo(a.hexColor));
     }
 
     menu[index] = !menu[index];

@@ -14,6 +14,14 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() async {
+      await context.read<MainViewModel>().getAllNote();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainViewModel>();
     return Scaffold(
@@ -34,18 +42,12 @@ class _MainScreenState extends State<MainScreen> {
               : Container(),
           Expanded(
             child: ListView(
-              children: viewModel.box.map((noteModel) {
+              children: viewModel.noteList.map((noteModel) {
                 return ListTile(
                   onTap: () {
                     context.push(
+                      '/put',
                       extra: noteModel,
-                      Uri(
-                        path: '/put',
-                        queryParameters: {
-                          'index':
-                              '${viewModel.box.toList().indexOf(noteModel)}'
-                        },
-                      ).toString(),
                     );
                   },
                   title: Text(noteModel.title),
@@ -55,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
                     icon: const Icon(Icons.delete),
                     onPressed: () {
                       viewModel
-                          .deleteBox(viewModel.box.toList().indexOf(noteModel));
+                          .deleteBox(noteModel.id);
                       setState(() {
 
                       });

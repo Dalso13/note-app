@@ -7,12 +7,10 @@ import '../../di/di_setup.dart';
 
 class CreateNote extends StatefulWidget {
   NoteModel? _model;
-  final int? _index;
 
   CreateNote(
-      {super.key, NoteModel? model, int? index})
-      : _index = index,
-        _model = model;
+      {super.key, NoteModel? model})
+      :_model = model;
 
   @override
   State<CreateNote> createState() => _CreateNoteState();
@@ -35,7 +33,7 @@ class _CreateNoteState extends State<CreateNote> {
   @override
   void initState() {
     super.initState();
-    if (widget._index != null && widget._model != null) {
+    if (widget._model != null) {
       _titleController.text = widget._model!.title;
       _contentController.text = widget._model!.content;
       _selectedColor = widget._model!.hexColor;
@@ -121,12 +119,13 @@ class _CreateNoteState extends State<CreateNote> {
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
             return;
           }
-          if (widget._index != null) {
+          if (widget._model != null) {
             getIt<MainViewModel>().setBox(
                 title: _titleController.text,
                 content: _contentController.text,
                 color: _selectedColor,
-                index: widget._index);
+                uuid : widget._model!.id,
+            );
           } else {
             getIt<MainViewModel>().setBox(
               title: _titleController.text,

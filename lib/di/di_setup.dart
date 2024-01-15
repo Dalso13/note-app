@@ -6,7 +6,7 @@ import 'package:note_app/view/view_model/main_view_model.dart';
 final getIt = GetIt.instance;
 
 void diSetup() {
-  getIt.registerSingleton<BoxDao>(BoxDao());
-  getIt.registerFactory<MainViewModel>(() => MainViewModel(dao: getIt<BoxDao>()));
+  getIt.registerSingleton<NoteRepository>(NoteRepository());
+  getIt.registerFactory<MainViewModel>(() => MainViewModel(dao: getIt<NoteRepository>()));
   getIt.registerFactory<SortBar>(() => SortBar());
 }

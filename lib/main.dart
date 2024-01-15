@@ -1,14 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:note_app/domain/model/note_model.dart';
 import 'package:note_app/routes.dart';
 
 import 'di/di_setup.dart';
+import 'firebase_options.dart';
 
 void main() async {
-  await Hive.initFlutter();
-  Hive.registerAdapter(NoteModelAdapter());
-  final box = await Hive.openBox<NoteModel>('modelBox');
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   diSetup();
   runApp(const MyApp());
 }
