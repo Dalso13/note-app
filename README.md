@@ -4,10 +4,10 @@
 
 ## preview
 
-<img src="https://github.com/Dalso13/note-app/assets/119721317/68c50f05-c6ce-4c3b-915e-18c2525baa56" width="220"/>
-<img src="https://github.com/Dalso13/note-app/assets/119721317/ab18d8d0-5ffc-4577-9354-238e8b1cd853" width="220"/>
-<img src="https://github.com/Dalso13/note-app/assets/119721317/5f4f8c84-994c-40e2-9e95-29206e2ba29d" width="220"/>
-<img src="https://github.com/Dalso13/note-app/assets/119721317/9f8e16cf-fe4d-483e-bf53-686d1a296786" width="220"/>
+<img src="https://github.com/Dalso13/note-app/assets/119721317/68c50f05-c6ce-4c3b-915e-18c2525baa56" width="200"/>
+<img src="https://github.com/Dalso13/note-app/assets/119721317/ab18d8d0-5ffc-4577-9354-238e8b1cd853" width="200"/>
+<img src="https://github.com/Dalso13/note-app/assets/119721317/5f4f8c84-994c-40e2-9e95-29206e2ba29d" width="200"/>
+<img src="https://github.com/Dalso13/note-app/assets/119721317/9f8e16cf-fe4d-483e-bf53-686d1a296786" width="200"/>
 
 ## Detail
 - 클린 아키텍쳐 적용
