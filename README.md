@@ -1,16 +1,38 @@
 # note_app
 
-A new Flutter project.
+플러터와 파이어베이스를 활용하여 제작한 간단한 노트앱 
 
-## Getting Started
+## preview
 
-This project is a starting point for a Flutter application.
+<img src="https://github.com/Dalso13/note-app/assets/119721317/68c50f05-c6ce-4c3b-915e-18c2525baa56" width="220"/>
+<img src="https://github.com/Dalso13/note-app/assets/119721317/ab18d8d0-5ffc-4577-9354-238e8b1cd853" width="220"/>
+<img src="https://github.com/Dalso13/note-app/assets/119721317/5f4f8c84-994c-40e2-9e95-29206e2ba29d" width="220"/>
+<img src="https://github.com/Dalso13/note-app/assets/119721317/9f8e16cf-fe4d-483e-bf53-686d1a296786" width="220"/>
 
-A few resources to get you started if this is your first Flutter project:
+## Detail
+- 클린 아키텍쳐 적용
+- hive , firebase 두개의 버전으로 제작
+- provider 로 상태관리
+- GoRouter 로 router 관리
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🗃 Tech stack
+Language
+- Dart 3.2.0
+
+Framework
+- Flutter 3.16.0
+
+Library
+  - get_it
+  - freezed
+  - json_annotation
+  - provider
+  - go_router
+  - hive: ^2.2.3
+  - firebase_core
+  - cloud_firestore
+  - firebase_ui_auth
+  - uuid
+  - json_serializable
+  - build_runner
